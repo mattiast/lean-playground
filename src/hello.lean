@@ -23,3 +23,12 @@ begin
 end
 
 -- data structure for such pairs (a,b)? prove functions and properties?
+
+structure solution (k : ℤ) :=
+  (a : ℤ)
+  (b : ℤ)
+  (req1 : a^2 + b^2 = k*(a*b+1))
+  (req2 : a ≥ 0 ∧ b ≥ 0)
+
+def height {k : ℤ }: solution k → ℤ :=
+  λ s, s.a + s.b
