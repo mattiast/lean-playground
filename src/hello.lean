@@ -9,7 +9,16 @@ end
 
 -- pick (a,b) solution for that, which makes a+b minimal
 
-lemma l1 (k a b : ℤ) (H2 : k ≥ 1 ∧ b ≥ 0) (H : a^2 + b^2 = k*(a*b+1)) (H1 : a ≤ b) : ℕ :=
+-- data structure for such pairs (a,b)? prove functions and properties?
+
+structure solution (k : ℤ) :=
+  (req0 : k ≥ 1)
+  (a : ℤ)
+  (b : ℤ)
+  (req1 : a^2 + b^2 = k*(a*b+1))
+  (req2 : a ≥ 0 ∧ b ≥ 0)
+
+lemma l1 (k a b : ℤ) (H2 : k ≥ 1 ∧ b ≥ 0) (H : a^2 + b^2 = k*(a*b+1)) (H1 : a ≤ b) : solution k :=
 begin
   let a1 := k*b-a, -- integer, must be positive
   have h : a1^2 + b^2 = k*(a1*b+1),
@@ -26,17 +35,12 @@ begin
     ... = (k-1)*b : by ring
     ... ≥ 0 : int.mul_nonneg (by linarith) (by linarith)
   },
-  exact 4,
+  have s : solution k,
+  {
+    exact solution.mk (H2.left) a1 b h ⟨ h2, H2.right⟩,
+  },
+  exact s,
 end
-
--- data structure for such pairs (a,b)? prove functions and properties?
-
-structure solution (k : ℤ) :=
-  (req0 : k ≥ 1)
-  (a : ℤ)
-  (b : ℤ)
-  (req1 : a^2 + b^2 = k*(a*b+1))
-  (req2 : a ≥ 0 ∧ b ≥ 0)
 
 def height {k : ℤ}: solution k → ℕ :=
   λ s, int.to_nat (s.a + s.b)
