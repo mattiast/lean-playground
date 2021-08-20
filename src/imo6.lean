@@ -96,6 +96,7 @@ begin
   ... ≤ s.a * s.a : mul_self_le_mul_self (by linarith) H1
 end
 
+-- can I define this to be `→ ℕ` ??
 def height {k : ℤ}: solution k → ℤ :=
   λ s, (s.a + s.b)
 
@@ -122,9 +123,8 @@ begin
   },
   apply H3,
   use s.b,
-  calc k = k + 0 : by ring
-  ... = k + (s.b^2-k) : by rw [this]
-  ... = s.b * s.b : by ring,
+  ring_nf,
+  linarith,
 end
 
 structure solution_normal (k : ℤ) :=
@@ -137,22 +137,20 @@ begin
   by_cases sp.s.a ≥ sp.s.b,
   {
     apply solution_normal.mk sp.s,
-    have : sp.s.b > 0, exact sp.pos.right,
-    linarith,
+    linarith [sp.pos.right],
     assumption,
   },
   {
-    simp at h,
-    have sn : solution_normal k :=
-    {
-      s := begin apply solution.mk sp.s.req0 sp.s.b sp.s.a,
-      {
-        let hh := sp.s.req1,
-        calc sp.s.b ^ 2 + sp.s.a ^ 2 = sp.s.a ^ 2 + sp.s.b ^ 2 : by ring
-        ... = k * (sp.s.a * sp.s.b + 1) : hh
-        ... = k * (sp.s.b * sp.s.a + 1) : by ring,
-      },
-      split ; linarith [sp.s.req2],
+    exact {
+      s := begin
+        apply solution.mk sp.s.req0 sp.s.b sp.s.a,
+        {
+          let hh := sp.s.req1,
+          calc sp.s.b ^ 2 + sp.s.a ^ 2 = sp.s.a ^ 2 + sp.s.b ^ 2 : by ring
+          ... = k * (sp.s.a * sp.s.b + 1) : hh
+          ... = k * (sp.s.b * sp.s.a + 1) : by ring,
+        },
+        split ; linarith [sp.s.req2],
       end,
       H2 := begin
         simp,
@@ -163,7 +161,6 @@ begin
         linarith,
       end,
     },
-    exact sn,
   },
 end
 
