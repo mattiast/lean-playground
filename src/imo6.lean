@@ -166,7 +166,7 @@ end
 
 lemma l6 (k : ℤ) (sp : solution_pos k) : height sp.s = height (normal k sp).s :=
 begin
-  by_cases sp.s.a ≥ sp.s.b ; dsimp [normal],
+  by_cases sp.s.b ≤ sp.s.a ; dsimp [normal],
     simp [h],
   simp [h],
   dsimp [height],
