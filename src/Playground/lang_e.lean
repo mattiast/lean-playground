@@ -1,5 +1,7 @@
 import Mathlib.Tactic
 
+namespace Playground.lang_e
+
 inductive eexpr : Type where
 | int : Int → eexpr
 | str : String → eexpr
@@ -362,3 +364,5 @@ lemma type_subst
     simp [subst]
     apply has_type.len
     exact ih _ _ _ te hn
+
+end Playground.lang_e

@@ -1,6 +1,7 @@
 import Mathlib.Data.Int.Basic
 import Mathlib.Tactic
 
+namespace Playground.imo6
 
 structure solution (k : ℤ) where
   req0 : k ≥ 1
@@ -192,3 +193,5 @@ lemma wfseq (f : ℕ → ℕ) (H : ∀ n, f (n+1) < f n) : False := by
 theorem no_pos_solution (k : ℤ) (hk : nosq k) (sp : solution_pos k) : False := by
   cases' height_sequence k hk (normal k sp) with f hf
   exact wfseq f hf
+
+end Playground.imo6

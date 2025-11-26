@@ -1,4 +1,7 @@
 -- based on a paper by Graham Hutton: https://www.cs.nott.ac.uk/~pszgmh/123.pdf
+
+namespace Playground.semantics
+
 inductive aexpr : Type where
 | val : Int → aexpr
 | add : aexpr → aexpr → aexpr
@@ -49,3 +52,5 @@ theorem abstract_machine (x: aexpr) : ∀ c, eval' x c = exec c (eval x) := by
   | add x y hx hy =>
     intro c
     rw [eval', hx, exec, hy, exec, eval]
+
+end Playground.semantics

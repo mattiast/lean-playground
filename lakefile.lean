@@ -5,7 +5,8 @@ require "leanprover-community" / "mathlib"
 
 package «matti-playground» where
   -- add package configuration options here
+  srcDir := "src"
 
 @[default_target]
-lean_lib «src/imo6» where
+lean_lib «Playground» where
   -- add library configuration options here

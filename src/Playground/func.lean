@@ -1,6 +1,8 @@
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic
 
+namespace Playground.func
+
 -- based on video https://www.youtube.com/watch?v=ac9GNeVaWgE
 
 variable {f g : ℝ → ℝ}
@@ -102,3 +104,4 @@ theorem solutions (feq : FuncEq f g) : (∀ x : ℝ , f x = 0 ∧ g x = 0) ∨ (
       simp at gf
       assumption
 
+end Playground.func

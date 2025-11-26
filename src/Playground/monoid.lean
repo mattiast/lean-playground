@@ -1,5 +1,7 @@
 import Mathlib.Tactic
 
+namespace Playground.monoid
+
 structure A where
   a : Int
   b : Int
@@ -35,3 +37,5 @@ instance A_monoid : Monoid A where
     show (A.mk xa xb xc * A.mk 0 0 0) = A.mk xa xb xc
     simp only [HMul.hMul, Mul.mul]
     simp
+
+end Playground.monoid
